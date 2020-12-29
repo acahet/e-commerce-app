@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { ReactComponent as Logo } from '../../assets/images/crown.svg';
@@ -19,7 +20,7 @@ const Header = ({ currentUser }) => {
 					CONTACT
 				</Link>
 				{currentUser ? (
-					<Link className="header__option" onClick={() => auth.signOut()}>
+					<Link className="header__option" to="/signin" onClick={() => auth.signOut()}>
 						SIGN OUT
 					</Link>
 				) : (
@@ -31,5 +32,7 @@ const Header = ({ currentUser }) => {
 		</div>
 	);
 };
-
-export default Header;
+const mapStateToProps = ({ user }) => ({
+	currentUser: user.currentUser,
+});
+export default connect(mapStateToProps)(Header);
